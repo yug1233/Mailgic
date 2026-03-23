@@ -252,17 +252,33 @@ const SectionBg = memo(()=>(
    LOGO
 ═══════════════════════════════════════════ */
 function Logo({ size=28, dark=false }) {
-  const gic=dark?"#fff":"#1a1a2e", sp=dark?"rgba(196,181,253,.9)":"#7C3AED";
+  const gic  = dark ? "#fff" : "#1a1a2e";
+  const sp   = dark ? "rgba(196,181,253,.9)" : "#6B3FE7";
+  const iconSize = size * 1.15;
   return (
-    <div style={{display:"flex",alignItems:"center",gap:8}}>
-      <svg width={size} height={size} viewBox="0 0 40 40" fill="none">
-        <rect x="1" y="6" width="38" height="28" rx="7" fill="#7C3AED"/>
-        <path d="M4 10 L20 24 L36 10" stroke="#fff" strokeWidth="3.5" strokeLinecap="round" strokeLinejoin="round"/>
+    <div style={{display:"flex",alignItems:"center",gap:10}}>
+      {/* Icon — pixel-perfect match to uploaded apple-touch-icon */}
+      <svg width={iconSize} height={iconSize} viewBox="0 0 100 100" fill="none">
+        {/* Purple rounded square background — same shade as image #6B3FE7 */}
+        <rect width="100" height="100" rx="22" fill="#6B3FE7"/>
+        {/* Subtle envelope body fill — white with low opacity like the image */}
+        <path d="M14 48 L50 78 L86 48 L86 86 L14 86 Z"
+              fill="white" opacity="0.12"/>
+        {/* Bold white V-chevron — this is the main element, thick strokes */}
+        <path d="M12 30 L50 68 L88 30"
+              stroke="white"
+              strokeWidth="17"
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              fill="none"/>
       </svg>
-      <svg height={size*.75} viewBox="0 0 94 24">
-        <text x="0" y="20" fontSize="22" fontWeight="800" fontFamily="Syne,sans-serif" fill="#7C3AED">Mail</text>
-        <text x="105" y="20" fontSize="22" fontWeight="800" fontFamily="Syne,sans-serif" fill="#FFFFFF">gic</text>
-        <text x="86" y="8"  fontSize="12" fill={sp}>✦</text>
+      {/* Wordmark */}
+      <svg height={size * 0.85} viewBox="0 0 108 28">
+        <text x="0"   y="22" fontSize="24" fontWeight="800"
+              fontFamily="Syne,sans-serif" fill="#6B3FE7">Mail</text>
+        <text x="58"  y="22" fontSize="24" fontWeight="800"
+              fontFamily="Syne,sans-serif" fill={gic}>gic</text>
+        <text x="97"  y="9"  fontSize="11" fill={sp}>✦</text>
       </svg>
     </div>
   );
