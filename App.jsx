@@ -260,7 +260,7 @@ function Logo({ size=28, dark=false }) {
         <path d="M4 10 L20 24 L36 10" stroke="#fff" strokeWidth="3.5" strokeLinecap="round" strokeLinejoin="round"/>
       </svg>
       <svg height={size*.75} viewBox="0 0 94 24">
-        <text x="0" y="20" fontSize="22" fontWeight="800" fontFamily="Syne,sans-serif" fill="#7C3AED">Mailgic</text>
+        <text x="0" y="20" fontSize="22" fontWeight="800" fontFamily="Syne,sans-serif" fill="#7C3AED">Mail</text>
         <text x="100" y="20" fontSize="22" fontWeight="800" fontFamily="Syne,sans-serif" fill={gic}>gic</text>
         <text x="86" y="8"  fontSize="12" fill={sp}>✦</text>
       </svg>
