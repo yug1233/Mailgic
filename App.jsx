@@ -407,31 +407,74 @@ function Features() {
 /* ═══════════════════════════════════════════
    GENERATOR
 ═══════════════════════════════════════════ */
-const generate=async()=>{
+function Generator({ user, nav }) {
+  const [topic,setTopic]=useState(""), [tone,setTone]=useState("Professional"), [len,setLen]=useState("Medium");
+  const [loading,setLoading]=useState(false), [output,setOutput]=useState(""), [error,setError]=useState(""), [copied,setCopied]=useState(false);
+  const tones=["Professional","Friendly","Casual","Persuasive","Formal"];
+  const lens=[{id:"Short",d:"2-3 paragraphs"},{id:"Medium",d:"3-4 paragraphs"},{id:"Detailed",d:"4-6 paragraphs"}];
+  const generate=async()=>{
     if(!topic.trim()) return;
     setLoading(true); setError(""); setOutput("");
     try{
-      // Send topic/tone/length — Edge Function builds the prompt and calls Groq
+      const lDesc=lens.find(l=>l.id===len)?.d||"3-4 paragraphs";
       const r=await fetch(AUTH_PROXY,{method:"POST",headers:{"Content-Type":"application/json"},
-        body:JSON.stringify({action:"generate",topic:topic.trim(),tone,length:len})});
-      if(!r.ok) throw new Error("server");
+        body:JSON.stringify({action:"generate",model:"claude-sonnet-4-20250514",max_tokens:1000,
+          messages:[{role:"user",content:`Write a ${tone.toLowerCase()} email about: "${topic}". Length: ${lDesc}. Start with "Subject: [line]" then blank line then body. End with sign-off. Sound natural, no placeholder brackets.if needed add (your name,your work etc)box for`}]})});
       const d=await r.json();
-      // Edge Function returns { text } on success, { error } on failure
-      if(d.error) throw new Error(d.error);
-      const text=d.text||"";
+      const text=d.content?.map(c=>c.text||"").join("")||"";
       if(!text) throw new Error("empty");
       setOutput(text);
       if(user) sbDb.insert(user.token,user.id,topic,tone,len,text).catch(()=>{});
     }catch(e){
-      const m=e.message||"";
-      if(m.includes("fetch")||m.includes("Load")||m.includes("Network"))
-        setError("Network error — check your connection and try again.");
-      else if(m.includes("empty"))
-        setError("Got an empty response. Please try again.");
-      else
-        setError("Generation failed. Please try again.");
+      setError(e.message?.includes("fetch")||e.message?.includes("Load")||e.message?.includes("Network")?"Network error — check your connection and try again.":"Generation failed. Please try again.");
     }finally{setLoading(false);}
   };
+  return (
+    <section id="generator" style={{padding:"96px 24px",background:"#fff",position:"relative",overflow:"hidden"}}>
+      <SectionBg/>
+      <div style={{maxWidth:680,margin:"0 auto",position:"relative"}}>
+        <div style={{textAlign:"center",marginBottom:40}}>
+          <div className="bdg" style={{marginBottom:14}}>✦ Try It Now</div>
+          <h2 style={{fontFamily:"Syne,sans-serif",fontWeight:800,fontSize:"clamp(26px,4vw,42px)",color:"#111827",marginBottom:12}}>Generate Your Perfect Email</h2>
+          <p style={{fontSize:15,color:"#6b7280",maxWidth:420,margin:"0 auto"}}>Describe your email, pick a tone, and let AI craft it in seconds.</p>
+        </div>
+        <div className="card gen-card" style={{padding:"34px 30px"}}>
+          <div style={{marginBottom:18}}>
+            <label style={{fontSize:12.5,fontWeight:600,color:"#374151",display:"block",marginBottom:7}}>What's your email about? *</label>
+            <textarea className="ainput" rows={3} placeholder="e.g. Follow up with client about Q3 proposal…" value={topic} onChange={e=>setTopic(e.target.value)} style={{resize:"vertical",lineHeight:1.65}}/>
+          </div>
+          <div style={{marginBottom:18}}>
+            <label style={{fontSize:12.5,fontWeight:600,color:"#374151",display:"block",marginBottom:9}}>Tone</label>
+            <div style={{display:"flex",gap:7,flexWrap:"wrap"}}>{tones.map(t=><button key={t} className={`tc ${tone===t?"sel":""}`} onClick={()=>setTone(t)}>{t}</button>)}</div>
+          </div>
+          <div style={{marginBottom:22}}>
+            <label style={{fontSize:12.5,fontWeight:600,color:"#374151",display:"block",marginBottom:9}}>Length</label>
+            <div style={{display:"flex",gap:7}}>{lens.map(l=><button key={l.id} className={`tc ${len===l.id?"sel":""}`} onClick={()=>setLen(l.id)} style={{flex:1}}>{l.id}</button>)}</div>
+          </div>
+          {error&&<div style={{padding:"11px 14px",borderRadius:10,marginBottom:14,background:"rgba(239,68,68,.05)",border:"1px solid rgba(239,68,68,.17)",color:"#dc2626",fontSize:13}}>{error}</div>}
+          <button className="gbtn" disabled={!topic.trim()||loading} onClick={generate} style={{width:"100%",justifyContent:"center",fontSize:14.5,padding:"13px"}}>
+            {loading?<><Loader2 size={15} style={{animation:"spin 1s linear infinite"}}/>Generating…</>:<><Sparkles size={15}/>Generate Email</>}
+          </button>
+          {!user&&<p style={{textAlign:"center",marginTop:10,fontSize:12.5,color:"#9ca3af"}}><button onClick={()=>nav("signup")} style={{color:"#7C3AED",fontWeight:600,cursor:"pointer",background:"none",border:"none"}}>Create free account</button> to save your emails</p>}
+          {output&&(
+            <div style={{marginTop:22}}>
+              <div style={{display:"flex",alignItems:"center",justifyContent:"space-between",marginBottom:7}}>
+                <span style={{fontSize:12,color:"#9ca3af"}}>{output.length} chars</span>
+                <div style={{display:"flex",gap:7}}>
+                  <button className="obtn" onClick={generate} style={{padding:"6px 13px",fontSize:12.5,gap:5}}><RefreshCw size={12}/>Regen</button>
+                  <button className="gbtn" onClick={()=>{navigator.clipboard.writeText(output);setCopied(true);setTimeout(()=>setCopied(false),2000);}} style={{padding:"6px 13px",fontSize:12.5,gap:5}}>
+                    {copied?<><Check size={12}/>Copied!</>:<><Copy size={12}/>Copy</>}
+                  </button>
+                </div>
+              </div>
+              <textarea className="eout" value={output} onChange={e=>setOutput(e.target.value)}/>
+            </div>
+          )}
+        </div>
+      </div>
+    </section>
+  );
+}
 /* ═══════════════════════════════════════════
    TESTIMONIALS — CSS infinite scroll
    Pattern from testimonials.txt
