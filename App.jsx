@@ -412,25 +412,33 @@ function Generator({ user, nav }) {
   const [loading,setLoading]=useState(false), [output,setOutput]=useState(""), [error,setError]=useState(""), [copied,setCopied]=useState(false);
   const tones=["Professional","Friendly","Casual","Persuasive","Formal"];
   const lens=[{id:"Short",d:"2-3 paragraphs"},{id:"Medium",d:"3-4 paragraphs"},{id:"Detailed",d:"4-6 paragraphs"}];
-  const generate=async()=>{
-    if(!topic.trim()) return;
-    setLoading(true); setError(""); setOutput("");
-    try{
-      const r=await fetch(AUTH_PROXY,{method:"POST",headers:{"Content-Type":"application/json"},
-        body:JSON.stringify({action:"generate",topic:topic.trim(),tone,length:len})});
-      const d=await r.json();
-      if(d.error) throw new Error(typeof d.error==="string"?d.error:d.error?.message||"Generation failed");
-      const text=d.text||"";
-      if(!text) throw new Error("Empty response — please try again.");
-      setOutput(text);
-      if(user) sbDb.insert(user.token,user.id,topic,tone,len,text).catch(()=>{});
-    }catch(e){
-      const m=e.message||"";
-      setError(m.includes("fetch")||m.includes("Network")||m.includes("Load")
+ const generate=async()=>{
+  if(!topic.trim()) return;
+  setLoading(true); setError(""); setOutput("");
+  try{
+    const r=await fetch(AUTH_PROXY,{
+      method:"POST",
+      headers:{"Content-Type":"application/json"},
+      body:JSON.stringify({action:"generate",topic:topic.trim(),tone,length:len})
+    });
+    const d=await r.json();
+    if(d.error){
+      const msg=typeof d.error==="string"?d.error:d.error?.message||"Generation failed";
+      throw new Error(msg);
+    }
+    const text=d.text||"";
+    if(!text) throw new Error("Empty response — please try again.");
+    setOutput(text);
+    if(user) sbDb.insert(user.token,user.id,topic,tone,len,text).catch(()=>{});
+  }catch(e){
+    const m=e.message||"";
+    setError(
+      m.includes("fetch")||m.includes("Network")||m.includes("Load")
         ?"Network error — check your connection."
-        :m||"Generation failed. Please try again.");
-    }finally{setLoading(false);}
-  };
+        :m
+    );
+  }finally{setLoading(false);}
+};
   return (
     <section id="generator" style={{padding:"96px 24px",background:"#fff",position:"relative",overflow:"hidden"}}>
       <SectionBg/>
