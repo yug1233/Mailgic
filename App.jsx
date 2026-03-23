@@ -416,17 +416,19 @@ function Generator({ user, nav }) {
     if(!topic.trim()) return;
     setLoading(true); setError(""); setOutput("");
     try{
-      const lDesc=lens.find(l=>l.id===len)?.d||"3-4 paragraphs";
       const r=await fetch(AUTH_PROXY,{method:"POST",headers:{"Content-Type":"application/json"},
-        body:JSON.stringify({action:"generate",model:"claude-sonnet-4-20250514",max_tokens:1000,
-          messages:[{role:"user",content:`Write a ${tone.toLowerCase()} email about: "${topic}". Length: ${lDesc}. Start with "Subject: [line]" then blank line then body. End with sign-off. Sound natural, no placeholder brackets.if needed add (your name,your work etc)box for`}]})});
+        body:JSON.stringify({action:"generate",topic:topic.trim(),tone,length:len})});
       const d=await r.json();
-      const text=d.content?.map(c=>c.text||"").join("")||"";
-      if(!text) throw new Error("empty");
+      if(d.error) throw new Error(typeof d.error==="string"?d.error:d.error?.message||"Generation failed");
+      const text=d.text||"";
+      if(!text) throw new Error("Empty response — please try again.");
       setOutput(text);
       if(user) sbDb.insert(user.token,user.id,topic,tone,len,text).catch(()=>{});
     }catch(e){
-      setError(e.message?.includes("fetch")||e.message?.includes("Load")||e.message?.includes("Network")?"Network error — check your connection and try again.":"Generation failed. Please try again.");
+      const m=e.message||"";
+      setError(m.includes("fetch")||m.includes("Network")||m.includes("Load")
+        ?"Network error — check your connection."
+        :m||"Generation failed. Please try again.");
     }finally{setLoading(false);}
   };
   return (
