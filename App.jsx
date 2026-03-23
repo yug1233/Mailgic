@@ -419,7 +419,7 @@ function Generator({ user, nav }) {
       const lDesc=lens.find(l=>l.id===len)?.d||"3-4 paragraphs";
       const r=await fetch(AUTH_PROXY,{method:"POST",headers:{"Content-Type":"application/json"},
         body:JSON.stringify({action:"generate",model:"claude-sonnet-4-20250514",max_tokens:1000,
-          messages:[{role:"user",content:`Write a ${tone.toLowerCase()} email about: "${topic}". Length: ${lDesc}. Start with "Subject: [line]" then blank line then body. End with sign-off. Sound natural, no placeholder brackets.`}]})});
+          messages:[{role:"user",content:`Write a ${tone.toLowerCase()} email about: "${topic}". Length: ${lDesc}. Start with "Subject: [line]" then blank line then body. End with sign-off. Sound natural, no placeholder brackets.if needed add (your name,your work etc)box for`}]})});
       const d=await r.json();
       const text=d.content?.map(c=>c.text||"").join("")||"";
       if(!text) throw new Error("empty");
@@ -475,7 +475,6 @@ function Generator({ user, nav }) {
     </section>
   );
 }
-
 /* ═══════════════════════════════════════════
    TESTIMONIALS — CSS infinite scroll
    Pattern from testimonials.txt
@@ -639,32 +638,61 @@ function AuthPage({ mode, nav, onLogin }) {
     if(isSU&&!name){setErr("Please enter your name.");return;}
     setLoading(true);
     try{
+      // Helper: extract clean error message from any Supabase error shape
+      const getErrMsg=(d)=>d?.error?.message||d?.error_description||d?.msg||d?.message||"";
+
       if(isSU){
         const d=await sbAuth.signUp(email,pass,name);
+        // Success: got access_token + user
         const tok=d.access_token||d.session?.access_token;
-        if(tok&&d.user){onLogin({id:d.user.id,email:d.user.email,token:tok,name:d.user.user_metadata?.full_name||name});nav("dashboard");}
-        else if(d.user&&!tok){
-          try{ const d2=await sbAuth.signIn(email,pass); if(d2.access_token){onLogin({id:d2.user.id,email:d2.user.email,token:d2.access_token,name});nav("dashboard");return;} }catch{}
-          setMsg("Account exists. Please log in."); setTimeout(()=>nav("login"),1400);
+        const usr=d.user||d; // signup returns user nested OR at root for repeated signup
+        if(tok&&usr?.id){
+          onLogin({id:usr.id,email:usr.email,token:tok,name:usr.user_metadata?.full_name||usr.raw_user_meta_data?.full_name||name});
+          nav("dashboard");
+        } else if(usr?.id&&!tok){
+          // user_repeated_signup OR email not confirmed — try signing in directly
+          try{
+            const d2=await sbAuth.signIn(email,pass);
+            if(d2.access_token&&d2.user){
+              onLogin({id:d2.user.id,email:d2.user.email,token:d2.access_token,name:d2.user.user_metadata?.full_name||name});
+              nav("dashboard"); return;
+            }
+          }catch{}
+          setMsg("Account already exists — logging you in…");
+          setTimeout(()=>nav("login"),1200);
         } else {
-          const m=d.error?.message||d.msg||"";
-          if(m.includes("weak")||m.includes("password"))setErr("Password too weak — try 8+ mixed characters.");
-          else if(m.includes("email"))setErr("Please enter a valid email address.");
+          const m=getErrMsg(d);
+          if(m.toLowerCase().includes("weak")||m.toLowerCase().includes("password"))setErr("Password too weak — use 8+ characters with letters and numbers.");
+          else if(m.toLowerCase().includes("email")||m.toLowerCase().includes("valid"))setErr("Please enter a valid email address.");
           else setErr(m||"Signup failed. Please try again.");
         }
       } else {
+        // SIGN IN — /auth/v1/token?grant_type=password
+        // Success shape: { access_token, token_type, refresh_token, user: {...} }
+        // Error shape:   { error: "invalid_grant", error_description: "..." }
         const d=await sbAuth.signIn(email,pass);
-        if(d.access_token){onLogin({id:d.user.id,email:d.user.email,token:d.access_token,name:d.user.user_metadata?.full_name||email.split("@")[0]});nav("dashboard");}
-        else{
-          const m=d.error?.message||d.msg||"";
-          if(m.includes("confirmed"))setErr("Please confirm your email first.");
-          else if(m.includes("credentials")||m.includes("Invalid"))setErr("Wrong email or password. Please try again.");
-          else setErr(m||"Login failed. Please try again.");
+        if(d.access_token&&d.user){
+          onLogin({
+            id:d.user.id,
+            email:d.user.email,
+            token:d.access_token,
+            name:d.user.user_metadata?.full_name||d.user.raw_user_meta_data?.full_name||email.split("@")[0]
+          });
+          nav("dashboard");
+        } else {
+          const m=getErrMsg(d);
+          const ml=m.toLowerCase();
+          if(ml.includes("confirm")||ml.includes("not confirmed"))setErr("Please confirm your email first, then try again.");
+          else if(ml.includes("invalid")||ml.includes("credentials")||ml.includes("grant"))setErr("Wrong email or password. Please try again.");
+          else if(ml.includes("rate")||ml.includes("limit"))setErr("Too many attempts. Please wait a minute and try again.");
+          else setErr(m||"Login failed — check your email and password.");
         }
       }
     }catch(e){
       const m=e.message||"";
-      setErr(m.includes("fetch")||m.includes("Load")||m.includes("Network")?"Network error — check your connection.":"Something went wrong. Please try again.");
+      setErr(m.includes("fetch")||m.includes("Load")||m.includes("Network")||m.includes("Failed")
+        ?"Network error — please check your connection and try again."
+        :"Something went wrong. Please try again.");
     }finally{setLoading(false);}
   };
   return (
