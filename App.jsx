@@ -251,35 +251,22 @@ const SectionBg = memo(()=>(
 /* ═══════════════════════════════════════════
    LOGO
 ═══════════════════════════════════════════ */
-<!DOCTYPE html>
-        <html lang="en">
-            <head>
-                <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-                <meta http-equiv="Content-Style-Type" content="text/css" />
-                <meta name="AI" content="mailgic" />
-                <title> Maigician for your mail</title>
-                <style type="text/css">
-                * {
-                    max-width: 100%;
-                    box-sizing: border-box;
-                }
-                body {
-                    font-family: "Times New Roman";
-                    font-size: 12pt;
-                }
-                p {
-                    margin: 0pt;
-                }
-                </style>
-            </head>
-            <body>
-                <div>
-                    <p style="text-align: justify">
-                        <img src="images/apple-touc.png" alt="apple-touc.png" height="auto">
-                    </p>
-                </div>
-            </body>
-        </html>
+function Logo({ size=28, dark=false }) {
+  const gic=dark?"#fff":"#1a1a2e", sp=dark?"rgba(196,181,253,.9)":"#7C3AED";
+  return (
+    <div style={{display:"flex",alignItems:"center",gap:8}}>
+      <svg width={size} height={size} viewBox="0 0 40 40" fill="none">
+        <rect x="1" y="6" width="38" height="28" rx="7" fill="#7C3AED"/>
+        <path d="M4 10 L20 24 L36 10" stroke="#fff" strokeWidth="3.5" strokeLinecap="round" strokeLinejoin="round"/>
+      </svg>
+      <svg height={size*.75} viewBox="0 0 94 24">
+        <text x="0" y="20" fontSize="22" fontWeight="800" fontFamily="Syne,sans-serif" fill="#7C3AED">Mailgic</text>
+        <text x="86" y="8"  fontSize="12" fill={sp}>✦</text>
+      </svg>
+    </div>
+  );
+}
+
 /* ═══════════════════════════════════════════
    NAVBAR
 ═══════════════════════════════════════════ */
