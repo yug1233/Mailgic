@@ -969,6 +969,8 @@ export default function App() {
 
   const nav=useCallback((target)=>{
     const secs=["features","generator","pricing","testimonials"];
+    if (page === "blog") return <BlogPage nav={nav} Logo={Logo} Footer={Footer} />;
+if (page.startsWith("blog-")) return <BlogPostPage postId={page.replace("blog-", "")} nav={nav} Logo={Logo} Footer={Footer} NotFound={NotFound} />;
     if(target==="home"){ if(page==="home")window.scrollTo({top:0,behavior:"smooth"}); else{setPage("home");window.scrollTo({top:0});} return; }
     if(secs.includes(target)){
       if(page==="home"){const el=document.getElementById(target);el&&el.scrollIntoView({behavior:"smooth"});}
