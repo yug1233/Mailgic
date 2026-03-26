@@ -253,34 +253,34 @@ const SectionBg = memo(()=>(
    LOGO
 ═══════════════════════════════════════════ */
 function Logo({ size=28, dark=false }) {
-  const gic  = dark ? "#fff" : "#1a1a2e";
-  const sp   = dark ? "rgba(196,181,253,.9)" : "#6B3FE7";
-  const iconSize = size * 1.15;
+  const gic = dark ? "#fff" : "#1a1a2e";
+  const sp  = dark ? "rgba(196,181,253,.9)" : "#6B3FE7";
   return (
-    <div style={{display:"flex",alignItems:"center",gap:10}}>
-      {/* Icon — pixel-perfect match to uploaded apple-touch-icon */}
-      <svg width={iconSize} height={iconSize} viewBox="0 0 100 100" fill="none">
-        {/* Purple rounded square background — same shade as image #6B3FE7 */}
+    <div style={{display:"flex",alignItems:"center",gap:9,flexShrink:0}}>
+      {/* Icon */}
+      <svg width={size} height={size} viewBox="0 0 100 100" fill="none"
+        style={{flexShrink:0}}>
         <rect width="100" height="100" rx="22" fill="#6B3FE7"/>
-        {/* Subtle envelope body fill — white with low opacity like the image */}
-        <path d="M14 48 L50 78 L86 48 L86 86 L14 86 Z"
-              fill="white" opacity="0.12"/>
-        {/* Bold white V-chevron — this is the main element, thick strokes */}
-        <path d="M12 30 L50 68 L88 30"
-              stroke="white"
-              strokeWidth="17"
-              strokeLinecap="round"
-              strokeLinejoin="round"
-              fill="none"/>
+        <path d="M12 30 L50 66 L88 30"
+          stroke="white" strokeWidth="17"
+          strokeLinecap="round" strokeLinejoin="round" fill="none"/>
       </svg>
-      {/* Wordmark */}
-      <svg height={size * 0.85} viewBox="0 0 108 28">
-        <text x="0"   y="22" fontSize="24" fontWeight="800"
-              fontFamily="Syne,sans-serif" fill="#6B3FE7">Mail</text>
-        <text x="58"  y="22" fontSize="24" fontWeight="800"
-              fontFamily="Syne,sans-serif" fill={gic}>gic</text>
-        <text x="97"  y="9"  fontSize="11" fill={sp}>✦</text>
-      </svg>
+      {/* Wordmark — fixed spacing, no SVG text tricks */}
+      <div style={{
+        display:"flex", alignItems:"baseline", gap:0,
+        fontFamily:"Syne,sans-serif", fontWeight:800,
+        fontSize: size * 0.82,
+        lineHeight:1, flexShrink:0,
+        whiteSpace:"nowrap"
+      }}>
+        <span style={{color:"#6B3FE7"}}>Mail</span>
+        <span style={{color:gic}}>gic</span>
+        <span style={{
+          color:sp, fontSize: size * 0.35,
+          alignSelf:"flex-start", marginTop: size * 0.05,
+          marginLeft:1
+        }}>✦</span>
+      </div>
     </div>
   );
 }
@@ -994,6 +994,8 @@ if (page.startsWith("blog-")) return <BlogPostPage postId={page.replace("blog-",
     if(page==="dashboard"){ if(!user){setPage("login");return null;} return <Dashboard user={user} logout={logout} nav={nav}/>; }
     if(page==="login"||page==="signup") return <AuthPage mode={page} nav={nav} onLogin={setUser}/>;
     if(LEGAL[page]) return <LegalPage id={page} nav={nav}/>;
+    if (page === "blog") return <BlogPage nav={nav} Logo={Logo} Footer={Footer} />;
+if (page.startsWith("blog-")) return <BlogPostPage postId={page.replace("blog-","")} nav={nav} Logo={Logo} Footer={Footer} NotFound={NotFound}/>;
     if(page!=="home") return <NotFound nav={nav}/>;
     return <Home nav={nav} user={user}/>;
   };
