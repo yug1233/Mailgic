@@ -994,7 +994,7 @@ if (page.startsWith("blog-")) return <BlogPostPage postId={page.replace("blog-",
     if(page==="dashboard"){ if(!user){setPage("login");return null;} return <Dashboard user={user} logout={logout} nav={nav}/>; }
     if(page==="login"||page==="signup") return <AuthPage mode={page} nav={nav} onLogin={setUser}/>;
     if(LEGAL[page]) return <LegalPage id={page} nav={nav}/>;
-    if (page === "blog") return <BlogPage nav={nav} Logo={Logo} Footer={Footer} />;
+   if (page === "blog") return <BlogPage nav={nav} Logo={Logo} Footer={Footer} />;
 if (page.startsWith("blog-")) return <BlogPostPage postId={page.replace("blog-","")} nav={nav} Logo={Logo} Footer={Footer} NotFound={NotFound}/>;
     if(page!=="home") return <NotFound nav={nav}/>;
     return <Home nav={nav} user={user}/>;
