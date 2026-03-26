@@ -294,7 +294,7 @@ function Navbar({ page, user, nav, logout }) {
   useEffect(()=>{ const fn=()=>setScrolled(window.scrollY>40); window.addEventListener("scroll",fn); return()=>window.removeEventListener("scroll",fn); },[]);
   useEffect(()=>setOpen(false),[page]);
   const isHome=page==="home", glass=isHome&&!scrolled;
-  const links=[{id:"features",l:"Features"},{id:"generator",l:"Generator"},{id:"pricing",l:"Pricing"},{id:"testimonials",l:"Testimonials"}];
+  const links=[{id:"features",l:"Features"},{id:"generator",l:"Generator"},{id:"pricing",l:"Pricing"},{id:"testimonials",l:"Testimonials"},{id:"blog",l:"Blog"}];
   return (
     <nav style={{position:"fixed",top:0,left:0,right:0,zIndex:200,height:66,display:"flex",alignItems:"center",padding:"0 28px",background:glass?"transparent":"rgba(255,255,255,.97)",backdropFilter:glass?"none":"blur(20px)",borderBottom:glass?"none":"1px solid rgba(124,58,237,.07)",transition:"all .3s"}}>
       <div style={{cursor:"pointer"}} onClick={()=>nav("home")}><Logo size={27} dark={glass}/></div>
