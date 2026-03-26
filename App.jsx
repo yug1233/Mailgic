@@ -570,11 +570,11 @@ function Pricing({ nav }) {
   },[]);
   const toggle=()=>{ const n=!annual; setAnnual(n); if(n) fireConfetti(); };
   const plans=[
-    {name:"Starter",mo:0₹,yr:0,desc:"Perfect for occasional use",btn:"Start for Free",
+    {name:"Starter",mo:0,yr:0,desc:"Perfect for occasional use",btn:"Start for Free",
      feats:["10 emails/month","3 tone options","Short & Medium length","Copy to clipboard","Email support"]},
-    {name:"Pro",mo:12₹,yr:9,pop:true,desc:"For professionals who write daily",btn:"Start Pro Trial",
+    {name:"Pro",mo:12,yr:9,pop:true,desc:"For professionals who write daily",btn:"Start Pro Trial",
      feats:["Unlimited emails","All 5 tones","All length options","30-day email history","Priority support","API access (beta)"]},
-    {name:"Team",mo:29₹,yr:23,desc:"For growing teams",btn:"Start Team Trial",
+    {name:"Team",mo:29,yr:23,desc:"For growing teams",btn:"Start Team Trial",
      feats:["Everything in Pro","Up to 10 seats","Custom templates","Analytics dashboard","Custom tone profiles","Dedicated account manager"]},
   ];
   return (
@@ -605,7 +605,7 @@ function Pricing({ nav }) {
               <h3 style={{fontFamily:"Syne,sans-serif",fontWeight:700,fontSize:17,color:"#111827",marginBottom:3}}>{p.name}</h3>
               <p style={{fontSize:12,color:"#9ca3af",marginBottom:16}}>{p.desc}</p>
               <div style={{marginBottom:18}}>
-                <span style={{fontFamily:"Syne,sans-serif",fontWeight:800,fontSize:38,color:"#111827"}}>${annual?p.yr:p.mo}</span>
+                <span style={{fontFamily:"Syne,sans-serif",fontWeight:800,fontSize:38,color:"#111827"}}>₹{annual?p.yr:p.mo}</span>
                 <span style={{fontSize:12.5,color:"#9ca3af"}}>/mo</span>
                 {annual&&p.mo>0&&<div style={{fontSize:11,color:"#059669",fontWeight:600,marginTop:1}}>billed annually</div>}
               </div>
