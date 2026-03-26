@@ -1,5 +1,6 @@
 import { useEffect } from "react";
 import { ChevronRight, ArrowLeft, Sparkles } from "lucide-react";
+import { BlogPage, BlogPostPage } from "./Blog.jsx";
 
 /* ═══════════════════════════════════════════════════════════
    BLOG DATA — 5 articles targeting high-volume Google searches
