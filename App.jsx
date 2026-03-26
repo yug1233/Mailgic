@@ -1,4 +1,3 @@
-
 import { useState, useEffect, useRef, memo, useCallback } from "react";
 import {
   Mail, Sparkles, Copy, Check, ChevronRight,
@@ -6,7 +5,6 @@ import {
   Calendar, Eye, EyeOff, ArrowLeft, Loader2, Star,
   Zap, Shield, RefreshCw, Users, Headphones
 } from "lucide-react";
-import { BlogPage, BlogPostPage } from "./Blog.jsx";
 
 /* ═══════════════════════════════════════════
    CONSTANTS
@@ -962,6 +960,145 @@ function Home({ nav, user }) {
 }
 
 /* ═══════════════════════════════════════════
+   BLOG DATA
+═══════════════════════════════════════════ */
+const BLOG_POSTS=[
+  {id:"how-to-write-professional-email",title:"How to Write a Professional Email (With Examples)",desc:"A complete guide to writing professional emails that get responses. Includes subject line tips, tone, structure, and real examples.",date:"March 20, 2025",readTime:"6 min read",category:"Email Tips",
+  content:`<h2>Why Professional Emails Matter</h2><p>Every email you send is a reflection of your professionalism. Whether you're writing to a client, a colleague, or a hiring manager, the way you write shapes how people perceive you.</p><h2>The 5-Part Structure</h2><h3>1. Subject Line</h3><p>Your subject line determines whether your email gets opened. Keep it specific and under 50 characters.</p><ul><li>❌ "Quick question"</li><li>✅ "Follow-up: Project proposal from Monday's call"</li></ul><h3>2. Greeting</h3><p>Always use the recipient's name. "Hi Sarah," is warmer than "Dear Sir/Madam".</p><h3>3. Opening Line</h3><p>Get to the point in the first sentence. Don't start with "I hope this email finds you well" — it's filler.</p><h3>4. Body</h3><p>Keep your body concise — 3 to 5 sentences. Use short paragraphs and bullet points for multiple items.</p><h3>5. Closing</h3><p>End with a clear call to action. Then sign off: "Best regards," or "Kind regards,"</p><h2>Common Mistakes to Avoid</h2><ul><li><strong>Being too vague:</strong> Be specific about what you need and when.</li><li><strong>Burying the ask:</strong> Put your main request in the first paragraph.</li><li><strong>No proofreading:</strong> Typos undermine your credibility.</li></ul><h2>Real Example</h2><blockquote><strong>Subject:</strong> Following up on our Q2 proposal<br/><br/>Hi Marcus,<br/><br/>I wanted to follow up on the proposal I sent last Thursday. I'd love to jump on a 15-minute call this week. Would Tuesday or Wednesday work?<br/><br/>Best regards, Alex</blockquote><h2>Generate in Seconds</h2><p>Mailgic's AI generates professional emails instantly. Describe your email, pick a tone, and hit generate. Try it free.</p>`},
+  {id:"best-ai-email-generators",title:"5 Best AI Email Generators in 2025 (Free & Paid)",desc:"Comparing the top AI email writing tools in 2025. Find out which is fastest, most accurate, and best for your use case.",date:"March 18, 2025",readTime:"7 min read",category:"Tools",
+  content:`<h2>The Best AI Email Generators in 2025</h2><p>AI email generators save hours of writing time every week and improve email quality. Here's an honest comparison of the top options in 2025.</p><h2>1. Mailgic — Best Free AI Email Generator</h2><p>Mailgic is purpose-built for email generation with consistently high quality for email use cases.</p><ul><li>✅ Generates a complete email in under 5 seconds</li><li>✅ 5 tone options: Professional, Friendly, Casual, Persuasive, Formal</li><li>✅ Free plan: 10 emails/month, no credit card required</li><li>❌ No browser extension yet</li></ul><h2>2. ChatGPT — Most Flexible</h2><p>ChatGPT can write emails but requires detailed prompts every time. No dedicated email interface or tone picker.</p><ul><li>✅ Extremely capable and flexible</li><li>❌ Requires writing detailed prompts</li><li>❌ No dedicated email features</li></ul><h2>3. Lavender — Best for Sales Teams</h2><p>Built for sales outreach. Integrates with Gmail and Outlook and scores your emails in real time.</p><ul><li>✅ Real-time email scoring</li><li>❌ Paid-only for most features</li></ul><h2>4. Copy.ai — Best for Marketers</h2><p>Great for promotional emails and newsletters, less suited for professional one-to-one correspondence.</p><ul><li>✅ Large template library</li><li>❌ Outputs often feel like marketing copy</li></ul><h2>5. Rytr — Best Budget Option</h2><p>Budget AI writing tool with decent quality but limited tone control.</p><ul><li>✅ Very affordable</li><li>❌ Output quality inconsistent</li></ul><h2>Verdict</h2><p>For the best free AI email generator for everyday use, Mailgic is the clear winner. Try it free — no credit card needed.</p>`},
+  {id:"how-to-write-follow-up-email",title:"How to Write a Follow-Up Email That Actually Gets a Reply",desc:"Learn how to write follow-up emails that get responses. Includes timing tips, subject lines, real templates, and what to avoid.",date:"March 15, 2025",readTime:"5 min read",category:"Email Tips",
+  content:`<h2>Why Most Follow-Up Emails Fail</h2><p>The average professional receives over 120 emails per day. Emails get missed — not because the person is rude, but because inboxes are overwhelming. A well-crafted follow-up isn't pushy. It's a helpful nudge.</p><h2>When to Send a Follow-Up</h2><ul><li><strong>After sending a proposal:</strong> Follow up after 3–5 business days</li><li><strong>After a meeting:</strong> Follow up within 24 hours</li><li><strong>After no response:</strong> Follow up after 5–7 business days</li><li><strong>Stop at 3:</strong> Three follow-ups is the maximum.</li></ul><h2>The Perfect Structure</h2><h3>Subject Line</h3><ul><li>"Re: Project proposal — quick follow-up"</li><li>"Following up from Tuesday's call"</li></ul><h3>Opening Line</h3><ul><li>"I wanted to follow up on my email from last week."</li><li>"Just making sure this didn't get buried."</li></ul><h3>Clear Call to Action</h3><p>End with one specific ask — not multiple questions.</p><h2>Template: After Sending a Proposal</h2><blockquote><strong>Subject:</strong> Following up on the proposal I sent Thursday<br/><br/>Hi [Name],<br/><br/>I wanted to follow up on the proposal I sent last Thursday. Happy to walk you through the details on a quick call. Would later this week work?<br/><br/>Best, [Your Name]</blockquote><h2>Generate with AI</h2><p>Mailgic writes professional follow-up emails in seconds. Choose a tone and get a ready-to-send email instantly.</p>`},
+  {id:"cold-email-templates",title:"10 Cold Email Templates That Actually Get Responses in 2025",desc:"Real cold email templates for sales, partnerships, networking, and job hunting. Tested and optimized for response rates.",date:"March 12, 2025",readTime:"8 min read",category:"Templates",
+  content:`<h2>What Makes a Cold Email Work?</h2><p>You have about 3 seconds to earn someone's attention before they delete your email. The formula: show you know them, explain what you offer, make one clear ask.</p><h2>Template 1: Sales Outreach</h2><blockquote><strong>Subject:</strong> [Company] — a quick idea on [specific challenge]<br/><br/>Hi [First Name],<br/><br/>I noticed [specific thing about their company]. We've helped companies like [similar company] solve this by [brief solution]. The result was [specific outcome].<br/><br/>Would a 15-minute call be worth it?<br/><br/>Best, [Your Name]</blockquote><h2>Template 2: Partnership Request</h2><blockquote><strong>Subject:</strong> Partnership idea — [Your Company] x [Their Company]<br/><br/>Hi [First Name],<br/><br/>I've been following [Their Company] and really admire [specific thing]. I think there's a natural fit between what we do. [Brief idea for collaboration].<br/><br/>Open to a quick call this week?<br/><br/>Warm regards, [Your Name]</blockquote><h2>Template 3: Networking</h2><blockquote><strong>Subject:</strong> Quick question from a fellow [industry] professional<br/><br/>Hi [First Name],<br/><br/>I came across your work and have been really impressed by [specific thing]. I'd love to get 15 minutes of your time to ask about [specific topic].<br/><br/>Thanks, [Your Name]</blockquote><h2>Rules for All Cold Emails</h2><ul><li><strong>Keep it under 100 words:</strong> Shorter emails get more responses.</li><li><strong>One ask only:</strong> Multiple asks kill response rates.</li><li><strong>Personalize the first line:</strong> Generic openers get ignored.</li><li><strong>Send Tuesday–Thursday:</strong> Better open rates.</li></ul><h2>Generate Cold Emails Instantly</h2><p>Use Mailgic to create personalized cold emails in seconds. Choose "Persuasive" for sales, "Professional" for networking.</p>`},
+  {id:"how-to-apologize-in-email",title:"How to Write an Apology Email (That Actually Sounds Sincere)",desc:"A step-by-step guide to writing apology emails that repair relationships. Real examples for professional and personal situations.",date:"March 8, 2025",readTime:"5 min read",category:"Email Tips",
+  content:`<h2>Why Getting Apology Emails Right Matters</h2><p>A bad apology email can make things worse than saying nothing. A good one can repair a relationship and restore trust. The difference: take full responsibility, no excuses, be specific.</p><h2>The 5 Elements of a Genuine Apology</h2><h3>1. Acknowledge What Happened — Specifically</h3><ul><li>❌ "I'm sorry if you were upset."</li><li>✅ "I'm sorry that I missed the 3pm deadline we agreed on."</li></ul><h3>2. Take Full Responsibility</h3><ul><li>❌ "I'm sorry but I wasn't given all the information."</li><li>✅ "I should have asked for clarification earlier. That's on me."</li></ul><h3>3. Express Genuine Regret</h3><p>"I understand this caused delays on your end and I genuinely regret that."</p><h3>4. Explain What You'll Do Differently</h3><p>"Going forward, I'll set a reminder 24 hours before all deadlines."</p><h3>5. Offer to Make It Right</h3><p>"I can have the corrected report to you by end of day today."</p><h2>Example: Missing a Deadline</h2><blockquote><strong>Subject:</strong> Apology — the report I owed you today<br/><br/>Hi James,<br/><br/>I want to apologize sincerely for missing the report deadline. I know you were counting on it this morning, and I let you down. There's no excuse for it.<br/><br/>I have the completed report ready now and am attaching it to this email.<br/><br/>Best regards, Alex</blockquote><h2>What to Avoid</h2><ul><li><strong>"I'm sorry you feel that way"</strong> — This is not an apology.</li><li><strong>Over-explaining</strong> — Two sentences of context is enough.</li><li><strong>Passive voice</strong> — Say "I made a mistake," not "Mistakes were made."</li></ul><h2>Generate Your Apology Email</h2><p>Mailgic can help you find the right words — professional, sincere, appropriately toned. Generate one in seconds.</p>`},
+];
+
+const BLOG_CSS=`
+.bc h2{font-family:Syne,sans-serif;font-weight:800;font-size:22px;color:#111827;margin:36px 0 12px}
+.bc h3{font-family:Syne,sans-serif;font-weight:700;font-size:17px;color:#111827;margin:24px 0 10px}
+.bc p{margin:0 0 16px;font-size:16px;color:#374151;line-height:1.82}
+.bc ul{padding-left:22px;margin:12px 0 18px;display:flex;flex-direction:column;gap:7px}
+.bc li{font-size:15px;color:#374151;line-height:1.7}
+.bc strong{font-weight:600;color:#111827}
+.bc blockquote{background:#fafbff;border-left:3px solid #7C3AED;border-radius:0 12px 12px 0;padding:18px 22px;margin:20px 0;font-size:14.5px;line-height:1.85;color:#374151}
+`;
+
+/* ═══════════════════════════════════════════
+   BLOG LIST PAGE
+═══════════════════════════════════════════ */
+function BlogPage({ nav }) {
+  useEffect(()=>window.scrollTo({top:0}),[]);
+  return (
+    <div style={{minHeight:"100vh",background:"#fafbff"}}>
+      <style>{BLOG_CSS}</style>
+      <div style={{background:"linear-gradient(135deg,#7C3AED,#6D28D9)",padding:"80px 24px 60px",textAlign:"center"}}>
+        <div style={{maxWidth:680,margin:"0 auto"}}>
+          <span style={{display:"inline-flex",alignItems:"center",gap:5,padding:"5px 14px",borderRadius:50,fontSize:12,fontWeight:600,background:"rgba(255,255,255,.15)",color:"#fff",border:"1px solid rgba(255,255,255,.25)",marginBottom:18}}>✦ Email Tips & Guides</span>
+          <h1 style={{fontFamily:"Syne,sans-serif",fontWeight:800,fontSize:"clamp(28px,5vw,48px)",color:"#fff",marginBottom:14,lineHeight:1.1}}>The Email Writing Blog</h1>
+          <p style={{fontSize:17,color:"rgba(255,255,255,.78)",maxWidth:480,margin:"0 auto",lineHeight:1.7}}>Practical guides on writing professional emails, cold outreach, follow-ups, and more.</p>
+        </div>
+      </div>
+      <div style={{maxWidth:1020,margin:"0 auto",padding:"56px 24px 80px"}}>
+        <div style={{display:"grid",gridTemplateColumns:"repeat(auto-fill,minmax(290px,1fr))",gap:24}}>
+          {BLOG_POSTS.map(post=>(
+            <article key={post.id} onClick={()=>nav(`blog-${post.id}`)}
+              style={{background:"#fff",borderRadius:18,border:"1px solid rgba(124,58,237,.1)",overflow:"hidden",cursor:"pointer",transition:"all .22s",boxShadow:"0 2px 12px rgba(124,58,237,.05)"}}
+              onMouseEnter={e=>{e.currentTarget.style.transform="translateY(-4px)";e.currentTarget.style.boxShadow="0 12px 32px rgba(124,58,237,.13)";}}
+              onMouseLeave={e=>{e.currentTarget.style.transform="";e.currentTarget.style.boxShadow="0 2px 12px rgba(124,58,237,.05)";}}>
+              <div style={{height:4,background:"linear-gradient(90deg,#7C3AED,#8B5CF6)"}}/>
+              <div style={{padding:"22px 24px 26px"}}>
+                <div style={{display:"flex",alignItems:"center",gap:8,marginBottom:12}}>
+                  <span style={{padding:"3px 10px",borderRadius:20,fontSize:11,fontWeight:600,background:"rgba(124,58,237,.08)",color:"#7C3AED"}}>{post.category}</span>
+                  <span style={{fontSize:11,color:"#9ca3af"}}>{post.readTime}</span>
+                </div>
+                <h2 style={{fontFamily:"Syne,sans-serif",fontWeight:700,fontSize:17,color:"#111827",marginBottom:10,lineHeight:1.35}}>{post.title}</h2>
+                <p style={{fontSize:13.5,color:"#6b7280",lineHeight:1.65,marginBottom:16}}>{post.desc}</p>
+                <div style={{display:"flex",alignItems:"center",justifyContent:"space-between"}}>
+                  <span style={{fontSize:11.5,color:"#9ca3af"}}>{post.date}</span>
+                  <span style={{fontSize:12.5,fontWeight:600,color:"#7C3AED",display:"flex",alignItems:"center",gap:4}}>Read more <ChevronRight size={13}/></span>
+                </div>
+              </div>
+            </article>
+          ))}
+        </div>
+        <div style={{marginTop:52,background:"linear-gradient(135deg,#7C3AED,#6D28D9)",borderRadius:20,padding:"36px 32px",textAlign:"center"}}>
+          <h2 style={{fontFamily:"Syne,sans-serif",fontWeight:800,fontSize:24,color:"#fff",marginBottom:10}}>Stop Writing Emails Manually</h2>
+          <p style={{fontSize:15,color:"rgba(255,255,255,.75)",maxWidth:420,margin:"0 auto 22px",lineHeight:1.65}}>Use Mailgic's free AI email generator to write professional emails in seconds.</p>
+          <button className="gbtn" onClick={()=>nav("generator")} style={{background:"rgba(255,255,255,.15)",border:"1.5px solid rgba(255,255,255,.3)"}}><Sparkles size={14}/>Try It Free</button>
+        </div>
+      </div>
+      <Footer nav={nav}/>
+    </div>
+  );
+}
+
+/* ═══════════════════════════════════════════
+   BLOG POST PAGE
+═══════════════════════════════════════════ */
+function BlogPostPage({ postId, nav }) {
+  const post=BLOG_POSTS.find(p=>p.id===postId);
+  useEffect(()=>window.scrollTo({top:0}),[postId]);
+  if(!post) return <NotFound nav={nav}/>;
+  const others=BLOG_POSTS.filter(p=>p.id!==postId).slice(0,3);
+  return (
+    <div style={{minHeight:"100vh",background:"#fafbff"}}>
+      <style>{BLOG_CSS}</style>
+      <div style={{position:"sticky",top:0,zIndex:100,background:"rgba(255,255,255,.97)",backdropFilter:"blur(18px)",borderBottom:"1px solid rgba(124,58,237,.07)",padding:"13px 28px",display:"flex",alignItems:"center",justifyContent:"space-between"}}>
+        <Logo size={24}/>
+        <button className="obtn" onClick={()=>nav("blog")} style={{padding:"7px 14px",fontSize:13,gap:5}}><ArrowLeft size={13}/>All Articles</button>
+      </div>
+      <div style={{maxWidth:720,margin:"0 auto",padding:"48px 24px 80px"}}>
+        <div style={{marginBottom:28}}>
+          <div style={{display:"flex",alignItems:"center",gap:8,marginBottom:14}}>
+            <span style={{padding:"3px 11px",borderRadius:20,fontSize:12,fontWeight:600,background:"rgba(124,58,237,.08)",color:"#7C3AED"}}>{post.category}</span>
+            <span style={{fontSize:12,color:"#9ca3af"}}>{post.readTime}</span>
+            <span style={{fontSize:12,color:"#9ca3af"}}>·</span>
+            <span style={{fontSize:12,color:"#9ca3af"}}>{post.date}</span>
+          </div>
+          <h1 style={{fontFamily:"Syne,sans-serif",fontWeight:800,fontSize:"clamp(24px,4vw,38px)",color:"#111827",lineHeight:1.2,marginBottom:16}}>{post.title}</h1>
+          <p style={{fontSize:17,color:"#6b7280",lineHeight:1.75,borderLeft:"3px solid #7C3AED",paddingLeft:16}}>{post.desc}</p>
+        </div>
+        <div style={{background:"rgba(124,58,237,.04)",border:"1px solid rgba(124,58,237,.12)",borderRadius:14,padding:"18px 22px",marginBottom:36,display:"flex",alignItems:"center",justifyContent:"space-between",flexWrap:"wrap",gap:12}}>
+          <div>
+            <div style={{fontSize:13.5,fontWeight:600,color:"#111827",marginBottom:3}}>✦ Try Mailgic's Free AI Email Generator</div>
+            <div style={{fontSize:12.5,color:"#6b7280"}}>Write professional emails in seconds. No login required.</div>
+          </div>
+          <button className="gbtn" onClick={()=>nav("generator")} style={{padding:"9px 20px",fontSize:13}}><Sparkles size={13}/>Generate Email</button>
+        </div>
+        <div className="bc" dangerouslySetInnerHTML={{__html:post.content}}/>
+        <div style={{background:"linear-gradient(135deg,#7C3AED,#6D28D9)",borderRadius:18,padding:"32px 28px",textAlign:"center",marginTop:48}}>
+          <h3 style={{fontFamily:"Syne,sans-serif",fontWeight:800,fontSize:21,color:"#fff",marginBottom:10}}>Generate This Email in Seconds</h3>
+          <p style={{fontSize:14.5,color:"rgba(255,255,255,.75)",marginBottom:20}}>Use Mailgic's free AI email generator — no account needed.</p>
+          <button className="gbtn" onClick={()=>nav("generator")} style={{background:"rgba(255,255,255,.15)",border:"1.5px solid rgba(255,255,255,.3)"}}><Sparkles size={14}/>Try Free Now</button>
+        </div>
+        {others.length>0&&(
+          <div style={{marginTop:52}}>
+            <h3 style={{fontFamily:"Syne,sans-serif",fontWeight:700,fontSize:18,color:"#111827",marginBottom:18}}>More Articles</h3>
+            <div style={{display:"flex",flexDirection:"column",gap:12}}>
+              {others.map(p=>(
+                <div key={p.id} onClick={()=>nav(`blog-${p.id}`)}
+                  style={{padding:"16px 20px",background:"#fff",borderRadius:12,border:"1px solid rgba(124,58,237,.09)",cursor:"pointer",display:"flex",alignItems:"center",justifyContent:"space-between",gap:12,transition:"all .18s"}}
+                  onMouseEnter={e=>e.currentTarget.style.borderColor="#7C3AED"}
+                  onMouseLeave={e=>e.currentTarget.style.borderColor="rgba(124,58,237,.09)"}>
+                  <div>
+                    <div style={{fontSize:13.5,fontWeight:600,color:"#111827",marginBottom:3}}>{p.title}</div>
+                    <div style={{fontSize:12,color:"#9ca3af"}}>{p.readTime} · {p.category}</div>
+                  </div>
+                  <ChevronRight size={15} color="#7C3AED" style={{flexShrink:0}}/>
+                </div>
+              ))}
+            </div>
+          </div>
+        )}
+      </div>
+      <Footer nav={nav}/>
+    </div>
+  );
+}
+
+/* ═══════════════════════════════════════════
    ROOT APP
 ═══════════════════════════════════════════ */
 export default function App() {
@@ -970,8 +1107,6 @@ export default function App() {
 
   const nav=useCallback((target)=>{
     const secs=["features","generator","pricing","testimonials"];
-    if (page === "blog") return <BlogPage nav={nav} Logo={Logo} Footer={Footer} />;
-if (page.startsWith("blog-")) return <BlogPostPage postId={page.replace("blog-", "")} nav={nav} Logo={Logo} Footer={Footer} NotFound={NotFound} />;
     if(target==="home"){ if(page==="home")window.scrollTo({top:0,behavior:"smooth"}); else{setPage("home");window.scrollTo({top:0});} return; }
     if(secs.includes(target)){
       if(page==="home"){const el=document.getElementById(target);el&&el.scrollIntoView({behavior:"smooth"});}
@@ -991,12 +1126,12 @@ if (page.startsWith("blog-")) return <BlogPostPage postId={page.replace("blog-",
   );
 
   const noNav=["dashboard","login","signup"].includes(page);
- const renderPage=()=>{
+  const renderPage=()=>{
     if(page==="dashboard"){ if(!user){setPage("login");return null;} return <Dashboard user={user} logout={logout} nav={nav}/>; }
     if(page==="login"||page==="signup") return <AuthPage mode={page} nav={nav} onLogin={setUser}/>;
     if(LEGAL[page]) return <LegalPage id={page} nav={nav}/>;
-    if(page==="blog") return <BlogPage nav={nav} Logo={Logo} Footer={Footer}/>;
-    if(page.startsWith("blog-")) return <BlogPostPage postId={page.replace("blog-","")} nav={nav} Logo={Logo} Footer={Footer} NotFound={NotFound}/>;
+    if(page==="blog") return <BlogPage nav={nav}/>;
+    if(page.startsWith("blog-")) return <BlogPostPage postId={page.replace("blog-","")} nav={nav}/>;
     if(page!=="home") return <NotFound nav={nav}/>;
     return <Home nav={nav} user={user}/>;
   };
