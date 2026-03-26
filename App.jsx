@@ -572,9 +572,9 @@ function Pricing({ nav }) {
   const plans=[
     {name:"Starter",mo:0,yr:0,desc:"Perfect for occasional use",btn:"Start for Free",
      feats:["10 emails/month","3 tone options","Short & Medium length","Copy to clipboard","Email support"]},
-    {name:"Pro",mo:12,yr:9,pop:true,desc:"For professionals who write daily",btn:"Start Pro Trial",
+    {name:"Pro",mo:249,yr:9,pop:true,desc:"For professionals who write daily",btn:"Start Pro Trial",
      feats:["Unlimited emails","All 5 tones","All length options","30-day email history","Priority support","API access (beta)"]},
-    {name:"Team",mo:29,yr:23,desc:"For growing teams",btn:"Start Team Trial",
+    {name:"Team",mo:299,yr:23,desc:"For growing teams",btn:"Start Team Trial",
      feats:["Everything in Pro","Up to 10 seats","Custom templates","Analytics dashboard","Custom tone profiles","Dedicated account manager"]},
   ];
   return (
