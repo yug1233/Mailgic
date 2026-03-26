@@ -640,6 +640,7 @@ function Footer({ nav }) {
         <div style={{borderTop:"1px solid rgba(255,255,255,.05)",paddingTop:18,display:"flex",alignItems:"center",justifyContent:"space-between",flexWrap:"wrap",gap:8}}>
           <span style={{fontSize:12,color:"rgba(255,255,255,.2)"}}>© {new Date().getFullYear()} Mailgic. All rights reserved.</span>
           <span style={{fontSize:12,color:"rgba(255,255,255,.2)"}}>Made with ♥ for better emails</span>
+             <span style={{fontSize:12,color:"rgba(255,255,255,.2)"}}>Made in india🇮🇳</span>
         </div>
       </div>
     </footer>
