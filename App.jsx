@@ -510,7 +510,10 @@ function Generator({ user, nav }) {
                   </button>
                 </div>
               </div>
-              <textarea className="eout" value={output} onChange={e=>setOutput(e.target.value)}/>
+            <textarea className="eout" value={output} onChange={e=>setOutput(e.target.value)}/>
+<p style={{fontSize:12,color:"#9ca3af",marginTop:8,textAlign:"center",lineHeight:1.5}}>
+  ⚠️ Mailgic is AI and it can make mistakes. Please double-check responses before sending.
+</p>
             </div>
           )}
         </div>
