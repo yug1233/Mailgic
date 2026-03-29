@@ -203,7 +203,9 @@ function WebGLShader() {
     };
     const resize=()=>{ if(!renderer||!uniforms)return; renderer.setSize(window.innerWidth,window.innerHeight,false); uniforms.resolution.value=[window.innerWidth,window.innerHeight]; };
     window.addEventListener("resize",resize);
-   const load=()=>{
+   // Skip WebGL entirely on mobile — saves 117kb
+if(window.innerWidth < 768) return;
+const load=()=>{
   if(window.THREE){ init(window.THREE); return; }
   const ex=document.querySelector('[data-id="threejs"]');
   if(ex){ ex.addEventListener("load",()=>init(window.THREE)); return; }
@@ -213,7 +215,6 @@ function WebGLShader() {
   s.onload=()=>init(window.THREE);
   document.head.appendChild(s);
 };
-// Defer 1 frame so page renders first, THEN load heavy shader
 requestAnimationFrame(load);
     return()=>{ cancelAnimationFrame(animId); window.removeEventListener("resize",resize); mesh?.geometry.dispose(); mesh?.material.dispose(); renderer?.dispose(); };
   },[]);
@@ -342,8 +343,12 @@ function Navbar({ page, user, nav, logout }) {
 function Hero({ nav, user }) {
   return (
     <section id="home" style={{minHeight:"100vh",position:"relative",background:"#000",display:"flex",alignItems:"center",justifyContent:"center",padding:"90px 24px 60px",isolation:"isolate",overflow:"hidden"}}>
-      <WebGLShader/>
-      <div style={{position:"absolute",inset:0,background:"rgba(0,0,0,.45)",zIndex:1}}/>
+      {window.innerWidth>=768 && <WebGLShader/>}
+<div style={{position:"absolute",inset:0,
+  background: window.innerWidth<768
+    ? "linear-gradient(135deg,#0f0a1e 0%,#1e0a3c 50%,#0a0516 100%)"
+    : "rgba(0,0,0,.45)",
+  zIndex:1}}/>
      <main style={{position:"relative",zIndex:2,maxWidth:820,width:"100%",textAlign:"center"}}>
         <div className="su0" style={{display:"flex",justifyContent:"center",marginBottom:22}}>
           <span style={{display:"inline-flex",alignItems:"center",gap:6,padding:"6px 15px",borderRadius:50,fontSize:12,fontWeight:600,letterSpacing:.4,background:"rgba(139,92,246,.14)",color:"rgba(196,181,253,.95)",border:"1px solid rgba(139,92,246,.26)"}}><Sparkles size={11}/>AI Email Generation</span>
