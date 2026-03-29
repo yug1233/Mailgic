@@ -203,12 +203,18 @@ function WebGLShader() {
     };
     const resize=()=>{ if(!renderer||!uniforms)return; renderer.setSize(window.innerWidth,window.innerHeight,false); uniforms.resolution.value=[window.innerWidth,window.innerHeight]; };
     window.addEventListener("resize",resize);
-    if(window.THREE) init(window.THREE);
-    else {
-      const ex=document.querySelector('[data-id="threejs"]');
-      if(ex){ ex.onload=()=>init(window.THREE); }
-      else { const s=document.createElement("script"); s.src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"; s.setAttribute("data-id","threejs"); s.onload=()=>init(window.THREE); document.head.appendChild(s); }
-    }
+   const load=()=>{
+  if(window.THREE){ init(window.THREE); return; }
+  const ex=document.querySelector('[data-id="threejs"]');
+  if(ex){ ex.addEventListener("load",()=>init(window.THREE)); return; }
+  const s=document.createElement("script");
+  s.src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js";
+  s.setAttribute("data-id","threejs");
+  s.onload=()=>init(window.THREE);
+  document.head.appendChild(s);
+};
+// Defer 1 frame so page renders first, THEN load heavy shader
+requestAnimationFrame(load);
     return()=>{ cancelAnimationFrame(animId); window.removeEventListener("resize",resize); mesh?.geometry.dispose(); mesh?.material.dispose(); renderer?.dispose(); };
   },[]);
   return <canvas ref={ref} style={{position:"absolute",inset:0,width:"100%",height:"100%",pointerEvents:"none"}}/>;
