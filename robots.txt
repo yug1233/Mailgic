@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://mailgic.netlify.app/sitemap.xml
+Sitemap: https://mailgic.in/sitemap.xml
