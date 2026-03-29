@@ -96,7 +96,7 @@ input,textarea{font-family:inherit;}
 .nl{background:none;border:none;color:#374151;font-size:14px;font-weight:500;padding:6px 11px;border-radius:8px;cursor:pointer;transition:all .18s;font-family:'Plus Jakarta Sans',sans-serif;}
 .nl:hover{color:#7C3AED;background:rgba(124,58,237,.06);}
 
-.tc{padding:7px 15px;border-radius:50px;border:1.5px solid rgba(124,58,237,.16);font-size:13px;font-weight:500;color:#6b7280;background:transparent;cursor:pointer;transition:all .18s;font-family:'Plus Jakarta Sans',sans-serif;}
+.tc{padding:7px 15px;border-radius:50px;border:1.5px solid rgba(124,58,237,.16);font-size:13px;font-weight:500;color:#374151;background:transparent;cursor:pointer;transition:all .18s;font-family:'Plus Jakarta Sans',sans-serif;}
 .tc.sel{background:#7C3AED;color:#fff;border-color:#7C3AED;}
 .tc:hover:not(.sel){border-color:rgba(124,58,237,.38);color:#7C3AED;background:rgba(124,58,237,.04);}
 
