@@ -113,8 +113,8 @@ input,textarea{font-family:inherit;}
 /* Text shimmer subtitle — from text_genration_.txt */
 .tshim{display:inline-block;--sp:90px;background-image:linear-gradient(90deg,#0000 calc(50% - var(--sp)),#fff,#0000 calc(50% + var(--sp))),linear-gradient(rgba(255,255,255,.58),rgba(255,255,255,.58));background-size:250% 100%,auto;background-repeat:no-repeat,padding-box;-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;animation:textShimmer 2.6s linear infinite;}
 
-.cfwd{animation:colFwd 26s linear infinite;}
-.cbwd{animation:colBwd 30s linear infinite;}
+.cfwd{animation:colFwd 26s linear infinite;will-change:transform;contain:layout style;}
+.cbwd{animation:colBwd 30s linear infinite;will-change:transform;contain:layout style;}
 .bp{stroke-dasharray:1400;animation:pathDraw 7s ease-out forwards;}
 
 .su0{animation:slideUp .65s ease .05s both;}
@@ -296,10 +296,15 @@ function Logo({ size=28, dark=false }) {
 function Navbar({ page, user, nav, logout }) {
   const [scrolled,setScrolled]=useState(false);
   const [open,setOpen]=useState(false);
-  useEffect(()=>{ const fn=()=>setScrolled(window.scrollY>40); window.addEventListener("scroll",fn); return()=>window.removeEventListener("scroll",fn); },[]);
+ useEffect(()=>{
+  let ticking=false;
+  const fn=()=>{ if(!ticking){ requestAnimationFrame(()=>{ setScrolled(window.scrollY>40); ticking=false; }); ticking=true; } };
+  window.addEventListener("scroll",fn,{passive:true});
+  return()=>window.removeEventListener("scroll",fn);
+},[]);
   useEffect(()=>setOpen(false),[page]);
   const isHome=page==="home", glass=isHome&&!scrolled;
-  const links=[{id:"features",l:"Features"},{id:"generator",l:"Generator"},{id:"pricing",l:"Pricing"},{id:"testimonials",l:"Testimonials"},{id:"blog",l:"Blog"}];
+ const links=[{id:"features",l:"Features"},{id:"generator",l:"Generator"},{id:"pricing",l:"Pricing"},{id:"testimonials",l:"Testimonials"},{id:"blog",l:"Blog"}];
   return (
     <nav style={{position:"fixed",top:0,left:0,right:0,zIndex:200,height:66,display:"flex",alignItems:"center",padding:"0 28px",background:glass?"transparent":"rgba(255,255,255,.97)",backdropFilter:glass?"none":"blur(20px)",borderBottom:glass?"none":"1px solid rgba(124,58,237,.07)",transition:"all .3s"}}>
       <div style={{cursor:"pointer"}} onClick={()=>nav("home")}><Logo size={27} dark={glass}/></div>
