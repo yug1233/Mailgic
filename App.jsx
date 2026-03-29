@@ -373,7 +373,7 @@ function Hero({ nav, user }) {
             </div>
           </div>
         </div>
-      </div>
+      </main>
     </section>
   );
 }
