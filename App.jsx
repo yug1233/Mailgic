@@ -309,9 +309,9 @@ function Navbar({ page, user, nav, logout }) {
           <button className="gbtn" onClick={()=>nav("signup")} style={{padding:"9px 20px",fontSize:13.5}}>Get Started</button></>
         )}
       </div>
-      <button className="ham" onClick={()=>setOpen(o=>!o)} style={{display:"none",alignItems:"center",justifyContent:"center",marginLeft:"auto",padding:8,borderRadius:8,color:glass?"#fff":"#374151",background:"none",border:"none"}}>
-        {open?<X size={21}/>:<Menu size={21}/>}
-      </button>
+    <button className="ham" aria-label={open?"Close menu":"Open menu"} onClick={()=>setOpen(o=>!o)} style={{display:"none",alignItems:"center",justifyContent:"center",marginLeft:"auto",padding:8,borderRadius:8,color:glass?"#fff":"#374151",background:"none",border:"none"}}>
+  {open?<X size={21}/>:<Menu size={21}/>}
+</button>
       {open&&(
         <div style={{position:"absolute",top:66,left:0,right:0,background:"rgba(255,255,255,.98)",borderTop:"1px solid rgba(124,58,237,.07)",padding:"14px 22px",boxShadow:"0 8px 32px rgba(0,0,0,.09)",animation:"navDrop .22s ease both",zIndex:199}}>
           {isHome&&links.map(l=><button key={l.id} className="nl" onClick={()=>{nav(l.id);setOpen(false);}} style={{display:"block",width:"100%",textAlign:"left",padding:"11px 8px",fontSize:15}}>{l.l}</button>)}
@@ -759,7 +759,7 @@ function AuthPage({ mode, nav, onLogin }) {
               </div>
               <div style={{position:"relative"}}>
                 <input className="ainput" type={showP?"text":"password"} placeholder="••••••••" value={pass} onChange={e=>setPass(e.target.value)} onKeyDown={e=>e.key==="Enter"&&submit()} style={{paddingRight:42}}/>
-                <button onClick={()=>setShowP(s=>!s)} style={{position:"absolute",right:11,top:"50%",transform:"translateY(-50%)",background:"none",border:"none",color:"#9ca3af",cursor:"pointer"}}>
+               <button aria-label={showP?"Hide password":"Show password"} onClick={()=>setShowP(s=>!s)} style={{position:"absolute",right:11,top:"50%",transform:"translateY(-50%)",background:"none",border:"none",color:"#9ca3af",cursor:"pointer"}}>
                   {showP?<EyeOff size={15}/>:<Eye size={15}/>}
                 </button>
               </div>
