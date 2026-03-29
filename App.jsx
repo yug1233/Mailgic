@@ -496,7 +496,6 @@ function Generator({ user, nav }) {
                  <button className="obtn" aria-label="Regenerate email" onClick={generate} style={{padding:"9px 16px",fontSize:12.5,gap:5,minHeight:40,minWidth:44}}><RefreshCw size={12}/>Regen</button>
 <button className="gbtn" aria-label="Copy email to clipboard" onClick={()=>{navigator.clipboard.writeText(output);setCopied(true);setTimeout(()=>setCopied(false),2000);}} style={{padding:"9px 16px",fontSize:12.5,gap:5,minHeight:40,minWidth:44}}>
   {copied?<><Check size={12}/>Copied!</>:<><Copy size={12}/>Copy</>}
-</button>
                   {copied?<><Check size={12}/>Copied!</>:<><Copy size={12}/>Copy</>}
                   </button>
                 </div>
