@@ -333,7 +333,7 @@ function Hero({ nav, user }) {
     <section id="home" style={{minHeight:"100vh",position:"relative",background:"#000",display:"flex",alignItems:"center",justifyContent:"center",padding:"90px 24px 60px",isolation:"isolate",overflow:"hidden"}}>
       <WebGLShader/>
       <div style={{position:"absolute",inset:0,background:"rgba(0,0,0,.45)",zIndex:1}}/>
-      <div style={{position:"relative",zIndex:2,maxWidth:820,width:"100%",textAlign:"center"}}>
+     <main style={{position:"relative",zIndex:2,maxWidth:820,width:"100%",textAlign:"center"}}>
         <div className="su0" style={{display:"flex",justifyContent:"center",marginBottom:22}}>
           <span style={{display:"inline-flex",alignItems:"center",gap:6,padding:"6px 15px",borderRadius:50,fontSize:12,fontWeight:600,letterSpacing:.4,background:"rgba(139,92,246,.14)",color:"rgba(196,181,253,.95)",border:"1px solid rgba(139,92,246,.26)"}}><Sparkles size={11}/>AI Email Generation</span>
         </div>
