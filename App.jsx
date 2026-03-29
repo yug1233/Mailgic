@@ -102,7 +102,7 @@ input,textarea{font-family:inherit;}
 
 .ainput{width:100%;padding:12px 15px;border-radius:11px;border:1.5px solid rgba(124,58,237,.16);font-size:14px;color:#111827;background:#fff;outline:none;transition:border-color .18s,box-shadow .18s;font-family:'Plus Jakarta Sans',sans-serif;}
 .ainput:focus{border-color:#7C3AED;box-shadow:0 0 0 3px rgba(124,58,237,.07);}
-.ainput::placeholder{color:#9ca3af;}
+.ainput::placeholder{color:#6b7280;}
 
 .eout{width:100%;padding:15px;border-radius:11px;border:1.5px solid rgba(124,58,237,.16);font-size:14px;color:#111827;background:#fafbff;outline:none;resize:vertical;line-height:1.75;min-height:240px;font-family:'Plus Jakarta Sans',sans-serif;transition:border-color .18s;}
 .eout:focus{border-color:#7C3AED;}
