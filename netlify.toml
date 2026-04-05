@@ -1,13 +1,17 @@
+# Redirects
 [[redirects]]
+# Serve sitemap.xml as a real file
 from = "/sitemap.xml"
 to = "/sitemap.xml"
 status = 200
 
 [[redirects]]
+# SPA catch-all for all other paths
 from = "/*"
 to = "/index.html"
 status = 200
 
+# Build settings
 [build]
 command = "npm run build"
 publish = "dist"
