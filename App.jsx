@@ -446,6 +446,23 @@ function Generator({ user, nav }) {
   const lens=[{id:"Short",d:"2-3 paragraphs"},{id:"Medium",d:"3-4 paragraphs"},{id:"Detailed",d:"4-6 paragraphs"}];
  const generate=async()=>{
   if(!topic.trim()) return;
+
+// Frontend safety check — instant, no API call wasted
+const BAD = [
+  /\b(kill|murder|threaten|stalk|harm|attack|bomb|shoot|weapon|explosive)\b/i,
+  /\b(rob|steal|fraud|scam|swindle|launder|extort|blackmail|bribe)\b/i,
+  /\b(hack|phish|malware|ransomware|virus|exploit|crack password|ddos)\b/i,
+  /\b(drug deal|cocaine|heroin|meth|fentanyl|sell pills|narco)\b/i,
+  /\b(porn|nude|escort|sex work|prostitut|adult content|explicit)\b/i,
+  /\b(terrorist|extremist|hate speech|jihad|white supremac)\b/i,
+  /\b(suicide|self.harm|kill myself|end my life)\b/i,
+  /\b(spam|fake identity|impersonat|pose as|pretend to be|fake review)\b/i,
+  /\b(manipulat|gaslight|guilt trip|coerce|pressure someone)\b/i,
+];
+if(BAD.some(p => p.test(topic))){
+  setError("Sorry, I can't help with that. Mailgic is for legitimate and professional emails only.");
+  return;
+}
   setLoading(true); setError(""); setOutput("");
   try{
     const r=await fetch(AUTH_PROXY,{
