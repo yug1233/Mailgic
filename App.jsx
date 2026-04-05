@@ -442,7 +442,7 @@ function Features() {
 function Generator({ user, nav }) {
   const [topic,setTopic]=useState(""), [tone,setTone]=useState("Professional"), [len,setLen]=useState("Medium");
   const [loading,setLoading]=useState(false), [output,setOutput]=useState(""), [error,setError]=useState(""), [copied,setCopied]=useState(false);
-  const tones=["Professional","Friendly","Casual","Persuasive","Formal"];
+  const tones=["Professional","Friendly","Casual","Request","Formal"];
   const lens=[{id:"Short",d:"less than 300 character"},{id:"Medium",d:"less than 550 and more than 300 character"},{id:"Detailed",d:"less than 760 and more than 550"}];
  const generate=async()=>{
   if(!topic.trim()) return;
@@ -523,7 +523,7 @@ if(BAD.some(p => p.test(topic))){
                  <button className="obtn" aria-label="Regenerate email" onClick={generate} style={{padding:"9px 16px",fontSize:12.5,gap:5,minHeight:40,minWidth:44}}><RefreshCw size={12}/>Regen</button>
 <button className="gbtn" aria-label="Copy email to clipboard" onClick={()=>{navigator.clipboard.writeText(output);setCopied(true);setTimeout(()=>setCopied(false),2000);}} style={{padding:"9px 16px",fontSize:12.5,gap:5,minHeight:40,minWidth:44}}>
   {copied?<><Check size={12}/>Copied!</>:<><Copy size={12}/>Copy</>}
-                  {copied?<><Check size={12}/>Copied!</>:<><Copy size={12}/>Copy</>}
+             
                   </button>
                 </div>
               </div>
@@ -543,10 +543,10 @@ if(BAD.some(p => p.test(topic))){
    Pattern from testimonials.txt
 ═══════════════════════════════════════════ */
 const TDATA=[
-  {name:"Sarah K.",role:"Startup Founder",text:"Mailgic saves me 2+ hours daily. Every email comes out polished and professional.",seed:"SarahK",bg:"b6e3f4"},
+  {name:"Rahul K.",role:"Startup Founder",text:"Mailgic saves me 2+ hours daily. Every email comes out polished and professional.",seed:"SarahK",bg:"b6e3f4"},
   {name:"James T.",role:"Sales Director",text:"Our email response rates jumped 40% after switching to Mailgic. Absolute game changer.",seed:"JamesT",bg:"c0aede"},
   {name:"Priya N.",role:"Freelance Designer",text:"As a non-native speaker, Mailgic makes me sound fluent. My clients love my emails.",seed:"PriyaN",bg:"ffdfbf"},
-  {name:"Marcus L.",role:"Marketing Manager",text:"I've tried every AI writing tool. Nothing matches Mailgic's tone accuracy and speed.",seed:"MarcusL",bg:"d1d4f9"},
+  {name:"Pintu.",role:"Marketing Manager",text:"I've tried every AI writing tool. Nothing matches Mailgic's tone accuracy and speed.",seed:"MarcusL",bg:"d1d4f9"},
   {name:"Emma W.",role:"Product Manager",text:"The Professional tone is unbelievably good. Stakeholder emails have never been easier.",seed:"EmmaW",bg:"b6e3f4"},
   {name:"Raj P.",role:"Tech Lead",text:"Even for technical emails, Mailgic nails the context. Essential to my workflow now.",seed:"RajP",bg:"c0aede"},
   {name:"Lisa M.",role:"Business Owner",text:"I used to spend an hour per email. Now 30 seconds. The ROI is absolutely insane.",seed:"LisaM",bg:"ffdfbf"},
