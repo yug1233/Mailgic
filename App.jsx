@@ -443,7 +443,7 @@ function Generator({ user, nav }) {
   const [topic,setTopic]=useState(""), [tone,setTone]=useState("Professional"), [len,setLen]=useState("Medium");
   const [loading,setLoading]=useState(false), [output,setOutput]=useState(""), [error,setError]=useState(""), [copied,setCopied]=useState(false);
   const tones=["Professional","Friendly","Casual","Persuasive","Formal"];
-  const lens=[{id:"Short",d:"2-3 paragraphs"},{id:"Medium",d:"3-4 paragraphs"},{id:"Detailed",d:"4-6 paragraphs"}];
+  const lens=[{id:"Short",d:"less than 300 character"},{id:"Medium",d:"less than 550 and more than 300 character"},{id:"Detailed",d:"less than 760 and more than 550"}];
  const generate=async()=>{
   if(!topic.trim()) return;
 
