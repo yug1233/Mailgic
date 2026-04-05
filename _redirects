@@ -1,0 +1,5 @@
+# Serve sitemap.xml as a real file
+/sitemap.xml  /sitemap.xml  200
+
+# SPA routing for all other paths
+/*  /index.html  200
