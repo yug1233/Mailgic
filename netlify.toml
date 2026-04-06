@@ -11,6 +11,12 @@ from = "/*"
 to = "/index.html"
 status = 200
 
+[[redirects]]
+from = "https://mailgic.netlify.app/*"
+to = "http://mailgic.in"
+status = 200
+force = true
+
 # Build settings
 [build]
 command = "npm run build"
