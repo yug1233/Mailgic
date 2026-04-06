@@ -3,90 +3,50 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <!-- Google tag (gtag.js) -->
-<script>
-  // Defer GTM until after page is interactive — saves 150kb on initial load
-  window.addEventListener('load', function() {
-    setTimeout(function() {
-      var s = document.createElement('script');
-      s.src = 'https://www.googletagmanager.com/gtag/js?id=G-L6F50CF6TT';
-      s.async = true;
-      document.head.appendChild(s);
-    }, 2000);
-  });
-  window.dataLayer = window.dataLayer || [];
-  function gtag(){dataLayer.push(arguments);}
-  gtag('js', new Date());
-  gtag('config', 'G-L6F50CF6TT');
-</script>
-    <script type="application/ld+json">
-{
-  "@context": "https://schema.org",
-  "@type": "Organization",
-  "name": "Mailgic",
-  "url": "https://mailgic.in",
-  "logo": "https://mailgic.in/logo.png",
-  "sameAs": [
-    "https://www.facebook.com/yourpage",
-    "https://twitter.com/yourhandle"
-  ]
-}
-</script>
-    <!-- Favicon -->
-<link rel="icon" href="https://mailgic.in/mailgiclogo.png" type="image/png">
-<link rel="shortcut icon" href="https://mailgic.in/mailgiclogo.png" type="image/png">
 
-<!-- Title & Meta Description -->
-<title>Mailgic - AI Powered Email Generator</title>
-<meta name="description" content="Generate professional, friendly, or casual emails in seconds with Mailgic, your AI-powered email assistant.">
+    <!-- Google Analytics — deferred 2s so it doesn't block page load -->
+    <script>
+      window.addEventListener('load', function() {
+        setTimeout(function() {
+          var s = document.createElement('script');
+          s.src = 'https://www.googletagmanager.com/gtag/js?id=G-L6F50CF6TT';
+          s.async = true;
+          document.head.appendChild(s);
+        }, 2000);
+      });
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', 'G-L6F50CF6TT');
+    </script>
 
-<!-- Structured Data for Logo / Organization -->
-<script type="application/ld+json">
-{
-  "@context": "https://schema.org",
-  "@type": "Organization",
-  "name": "Mailgic",
-  "url": "https://mailgic.in",
-  "logo": "https://mailgic.in/mailgiclogo.png",
-  
-  ]
-}
-</script>
-<script>
-  window.dataLayer = window.dataLayer || [];
-  function gtag(){dataLayer.push(arguments);}
-  gtag('js', new Date());
-
-  gtag('config', 'G-L6F50CF6TT');
-</script>
-
-    <!-- ═══ PRIMARY SEO ═══════════════════════════════════════════════ -->
-    <title>Mailgic — Free AI Email Generator | No login required</title>
-    <meta name="description" content="Mailgic is a 100% free AI email generator that writes emails in seconds. Try it now — generate your perfect email instantly." />
-    <meta name="keywords" content="AI email generator, free email writer, professional email generator, write email with AI, email writing tool, AI email writer, generate email online, email generator free, business email generator, email writing assistant,email writer,mailmagic.mailgic" />
+    <!-- PRIMARY SEO -->
+    <title>Mailgic — Free AI Email Generator | Professional Emails in 5 Seconds</title>
+    <meta name="description" content="Generate professional emails instantly with Mailgic's free AI email writer. Choose from 5 tones — Professional, Friendly, Casual, Persuasive, Formal. No signup needed. Try free now." />
+    <meta name="keywords" content="AI email generator, free email writer, professional email generator, write email with AI, email writing tool, AI email writer, generate email online, email generator free, business email generator, email writing assistant, mailgic" />
     <meta name="author" content="Mailgic" />
     <meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1" />
     <link rel="canonical" href="https://mailgic.in/" />
 
-    <!-- ═══ OPEN GRAPH (Facebook, LinkedIn, WhatsApp) ════════════════ -->
+    <!-- OPEN GRAPH -->
     <meta property="og:type" content="website" />
     <meta property="og:url" content="https://mailgic.in/" />
     <meta property="og:title" content="Mailgic — Free AI Email Generator" />
-    <meta property="og:description" content="Write professional emails in seconds with AI. Choose your tone — Professional, Friendly, Persuasive — and get a perfect email instantly. Free to use." />
-    <meta property="og:image" content="https://mailgic.netlify.app/og-image.png" />
+    <meta property="og:description" content="Write professional emails in seconds with AI. Choose your tone and get a perfect email instantly. Free to use." />
+    <meta property="og:image" content="https://mailgic.in/og-image.svg" />
     <meta property="og:image:width" content="1200" />
     <meta property="og:image:height" content="630" />
     <meta property="og:site_name" content="Mailgic" />
     <meta property="og:locale" content="en_US" />
 
-    <!-- ═══ TWITTER CARD ═════════════════════════════════════════════ -->
+    <!-- TWITTER CARD -->
     <meta name="twitter:card" content="summary_large_image" />
     <meta name="twitter:url" content="https://mailgic.in/" />
     <meta name="twitter:title" content="Mailgic — Free AI Email Generator" />
     <meta name="twitter:description" content="Write professional emails in seconds with AI. Free, instant, no login required." />
-    <meta name="twitter:image" content="https://mailgic.netlify.app/og-image.png" />
+    <meta name="twitter:image" content="https://mailgic.in/og-image.svg" />
 
-    <!-- ═══ STRUCTURED DATA — SoftwareApplication ════════════════════ -->
+    <!-- STRUCTURED DATA: SoftwareApplication -->
     <script type="application/ld+json">
     {
       "@context": "https://schema.org",
@@ -117,30 +77,30 @@
     }
     </script>
 
-    <!-- ═══ STRUCTURED DATA — WebSite + SearchBox ════════════════════ -->
+    <!-- STRUCTURED DATA: WebSite -->
     <script type="application/ld+json">
     {
       "@context": "https://schema.org",
       "@type": "WebSite",
       "name": "Mailgic",
       "url": "https://mailgic.in/",
-      "description": "Free AI email generator — write perfect emails in seconds",
-      "potentialAction": {
-        "@type": "SearchAction",
-        "target": "https://mailgic.in/?q={search_term_string}",
-        "query-input": "required name=search_term_string"
-      }
+      "description": "Free AI email generator — write perfect emails in seconds"
     }
     </script>
 
-    <!-- ═══ STRUCTURED DATA — Organization ══════════════════════════ -->
+    <!-- STRUCTURED DATA: Organization -->
     <script type="application/ld+json">
     {
       "@context": "https://schema.org",
       "@type": "Organization",
       "name": "Mailgic",
       "url": "https://mailgic.in/",
-      "logo": "https://mailgic.in/favicon.svg",
+      "logo": {
+        "@type": "ImageObject",
+        "url": "https://mailgic.in/apple-touch-icon.png",
+        "width": 512,
+        "height": 512
+      },
       "description": "Mailgic builds AI tools that make professional email writing effortless.",
       "contactPoint": {
         "@type": "ContactPoint",
@@ -150,7 +110,7 @@
     }
     </script>
 
-    <!-- ═══ STRUCTURED DATA — FAQ (ranks in Google FAQ rich results) ═ -->
+    <!-- STRUCTURED DATA: FAQ — shows in Google rich results -->
     <script type="application/ld+json">
     {
       "@context": "https://schema.org",
@@ -169,7 +129,7 @@
           "name": "How does the AI email generator work?",
           "acceptedAnswer": {
             "@type": "Answer",
-            "text": "You describe what your email is about, choose a tone (Professional, Friendly, Casual, Persuasive, or Formal), and Mailgic's AI generates a complete, ready-to-send email in under 5 seconds."
+            "text": "You describe what your email is about, choose a tone (Professional, Friendly, Casual, Persuasive, or Formal), and Mailgic generates a complete ready-to-send email in under 5 seconds."
           }
         },
         {
@@ -187,23 +147,33 @@
             "@type": "Answer",
             "text": "Logged-in users can save up to 30 days of email history. We never train AI models on your email content."
           }
+        },
+        {
+          "@type": "Question",
+          "name": "Do I need an account to use Mailgic?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "No account is needed to generate emails. You only need to sign up if you want to save your email history."
+          }
         }
       ]
     }
     </script>
 
-    <!-- ═══ ICONS & THEME ═════════════════════════════════════════════ -->
+    <!-- ICONS & THEME -->
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-    <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+    <link rel="icon" type="image/png" sizes="192x192" href="/apple-touch-icon.png" />
+    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
     <meta name="theme-color" content="#7C3AED" />
     <meta name="msapplication-TileColor" content="#7C3AED" />
 
-    <!-- ═══ PERFORMANCE ═══════════════════════════════════════════════ -->
+    <!-- PERFORMANCE -->
     <link rel="preconnect" href="https://fonts.googleapis.com" />
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-<link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Syne:wght@700;800&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" />
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Syne:wght@700;800&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Syne:wght@700;800&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" />
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Syne:wght@700;800&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" />
     <link rel="dns-prefetch" href="https://lrvcliytsachlwrwjhpz.supabase.co" />
+    <link rel="dns-prefetch" href="https://api.groq.com" />
   </head>
   <body>
     <div id="root"></div>
