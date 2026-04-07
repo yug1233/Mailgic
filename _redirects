@@ -1,5 +1,8 @@
-# Serve sitemap.xml as a real file
-/sitemap.xml  /sitemap.xml  200
+# Redirect old domain → new domain
+https://mailgic.netlify.app/* https://mailgic.in/:splat 301!
 
-# SPA routing for all other paths
-/*  /index.html  200
+# Serve sitemap.xml
+/sitemap.xml /sitemap.xml 200
+
+# SPA fallback
+/* /index.html 200
