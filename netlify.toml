@@ -12,10 +12,10 @@ to = "/index.html"
 status = 200
 
 [[redirects]]
-from = "https://mailgic.netlify.app/*"
-to = "http://mailgic.in"
-status = 200
-force = true
+  from = "https://mailgic.netlify.app/*"
+  to = "https://mailgic.in/:splat"
+  status = 301
+  force = true
 
 # Build settings
 [build]
