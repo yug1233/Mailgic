@@ -677,7 +677,8 @@ const prod=[{id:"features",l:"Features"},{id:"generator",l:"AI Email Generator"}
         <div style={{borderTop:"1px solid rgba(255,255,255,.05)",paddingTop:18,display:"flex",alignItems:"center",justifyContent:"space-between",flexWrap:"wrap",gap:8}}>
           <span style={{fontSize:12,color:"rgba(255,255,255,.2)"}}>© {new Date().getFullYear()} Mailgic. All rights reserved.</span>
           <span style={{fontSize:12,color:"rgba(255,255,255,.2)"}}>Made with ♥ for better emails</span>
-             <span style={{fontSize:12,color:"rgba(255,255,255,.2)"}}>Made in india🇮🇳</span>
+             <span style={{fontSize:12,color:"rgba(255,255,255,.2)"}}>Made in india</span>
+          <span style={{fontSize:12,color:"rgba(255,255,255,.2)"}}>Connect to us at ma.ilgic@outlook.com</span>
         </div>
       </div>
     </footer>
@@ -968,27 +969,6 @@ function LegalPage({ id, nav }) {
   );
 }
 
-/* ═══════════════════════════════════════════
-   404 — animated from sides (from 404_not_found.txt)
-   Numbers slide in, ghost floats
-═══════════════════════════════════════════ */
-function NotFound({ nav }) {
-  return (
-    <div style={{minHeight:"100vh",background:"#fafbff",position:"relative",display:"flex",flexDirection:"column",alignItems:"center",justifyContent:"center",overflow:"hidden",padding:"24px"}}>
-      <SectionBg/>
-      <div style={{position:"relative",zIndex:1,textAlign:"center"}}>
-        <div style={{display:"flex",alignItems:"center",justifyContent:"center",gap:18,marginBottom:20}}>
-          <span className="sl" style={{fontFamily:"Syne,sans-serif",fontWeight:800,fontSize:"clamp(80px,16vw,144px)",color:"rgba(124,58,237,.1)",lineHeight:1,userSelect:"none"}}>4</span>
-          <div style={{fontSize:"clamp(54px,11vw,96px)",lineHeight:1,animation:"floatY 3s ease-in-out infinite,fadeIn .7s ease .2s both"}}>👻</div>
-          <span className="sr" style={{fontFamily:"Syne,sans-serif",fontWeight:800,fontSize:"clamp(80px,16vw,144px)",color:"rgba(124,58,237,.1)",lineHeight:1,userSelect:"none"}}>4</span>
-        </div>
-        <h1 style={{fontFamily:"Syne,sans-serif",fontWeight:800,fontSize:"clamp(20px,4vw,32px)",color:"#111827",marginBottom:10,animation:"fadeIn .6s ease .4s both"}}>Page not found</h1>
-        <p style={{fontSize:15,color:"#6b7280",marginBottom:24,animation:"fadeIn .6s ease .5s both"}}>Boo! This page seems to have vanished into thin air.</p>
-        <button className="gbtn" onClick={()=>nav("home")} style={{animation:"fadeIn .6s ease .6s both"}}>Back to Home</button>
-      </div>
-    </div>
-  );
-}
 
 /* ═══════════════════════════════════════════
    HOME
