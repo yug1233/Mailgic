@@ -1,8 +1,7 @@
-# Redirect old domain → new domain
-https://mailgic.netlify.app/* https://mailgic.in/:splat 301!
 
-# Serve sitemap.xml
-/sitemap.xml /sitemap.xml 200
 
 # SPA fallback
 /* /index.html 200
+
+/* https://mailgic.in/:splat 301!
+/sitemap.xml /sitemap.xml 200
