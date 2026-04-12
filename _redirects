@@ -1,1 +1,8 @@
+# Redirect ONLY netlify subdomain
 https://mailgic.netlify.app/* https://mailgic.in/:splat 301!
+
+# Sitemap
+/sitemap.xml /sitemap.xml 200
+
+# SPA fallback
+/* /index.html 200
