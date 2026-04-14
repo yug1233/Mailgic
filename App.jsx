@@ -1,4 +1,4 @@
-import { ContactPage } from "./Contact.jsx";
+import { ContactPage } from "./contact.jsx";
 import { useState, useEffect, useRef, memo, useCallback } from "react";
 import {
   Mail, Sparkles, Copy, Check, ChevronRight,
