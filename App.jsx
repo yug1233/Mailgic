@@ -435,7 +435,18 @@ function Features() {
     </section>
   );
 }
-
+/*send notification*/
+<form name="contact" method="POST" data-netlify="true">
+  <p>
+    <label>Name <input type="text" name="name" /></label>
+  </p>
+  <p>
+    <label>Email <input type="email" name="email" /></label>
+  </p>
+  <p>
+    <button type="submit">Send</button>
+  </p>
+</form>
 /* ═══════════════════════════════════════════
    GENERATOR
 ═══════════════════════════════════════════ */
@@ -664,7 +675,7 @@ function Pricing({ nav }) {
 ═══════════════════════════════════════════ */
 function Footer({ nav }) {
 const prod=[{id:"features",l:"Features"},{id:"generator",l:"AI Email Generator"},{id:"pricing",l:"Pricing"},{id:"testimonials",l:"Testimonials"},{id:"blog",l:"Email Writing Blog"}];
-  const legal=[{id:"privacy",l:"Privacy Policy"},{id:"terms",l:"Terms of Service"},{id:"security",l:"Security"},{id:"cookies",l:"Cookie Policy"}];
+  const legal=[{id:"privacy",l:"Privacy Policy"},{id:"terms",l:"Terms of Service"},{id:"security",l:"Security"},{id:"contact", l:"Contact Us"}{id:"cookies",l:"Cookie Policy"}];
   const Lnk=({id,l})=>(<button onClick={()=>nav(id)} style={{display:"flex",alignItems:"center",gap:5,background:"none",border:"none",color:"rgba(255,255,255,.4)",fontSize:13,cursor:"pointer",padding:"3px 0",transition:"color .16s",fontFamily:"'Plus Jakarta Sans',sans-serif"}} onMouseEnter={e=>e.currentTarget.style.color="#8B5CF6"} onMouseLeave={e=>e.currentTarget.style.color="rgba(255,255,255,.4)"}><ChevronRight size={12}/>{l}</button>);
   return (
     <footer style={{background:"#0f0a1e",padding:"52px 24px 26px"}}>
@@ -1150,6 +1161,7 @@ export default function App() {
     if(LEGAL[page]) return <LegalPage id={page} nav={nav}/>;
     if(page==="blog") return <BlogPage nav={nav}/>;
     if(page.startsWith("blog-")) return <BlogPostPage postId={page.replace("blog-","")} nav={nav}/>;
+    if(page==="contact") return <ContactPage nav={nav} Logo={Logo} Footer={Footer}/>;
     if(page!=="home") return <NotFound nav={nav}/>;
     return <Home nav={nav} user={user}/>;
   };
