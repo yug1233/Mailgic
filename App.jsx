@@ -1,3 +1,4 @@
+import { ContactPage } from "./Contact.jsx";
 import { useState, useEffect, useRef, memo, useCallback } from "react";
 import {
   Mail, Sparkles, Copy, Check, ChevronRight,
